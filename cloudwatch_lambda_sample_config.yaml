@@ -1,0 +1,81 @@
+Description: >
+  This will create a dashboard and some sample metrics.
+
+Parameters:
+  VakeesDashboardName:
+    Description: VPC used for launching this instance
+    Type: String
+    Default: Vakees-Lambda
+  LambdaFunctionName:
+    Description: The Lambda function name
+    Type: String
+    Default: VakeesLambdaFunction
+
+Resources:  
+  VakeesCloudwatchDashboard:
+    Type: "AWS::CloudWatch::Dashboard"
+    Properties:
+      DashboardName: !Ref VakeesDashboardName
+      DashboardBody: !Sub |
+        {
+        "widgets": [
+        {
+        "type": "metric",
+        "x": 0,
+        "y": 3,
+        "width": 6,
+        "height": 3,
+        "properties": {
+        "title": "Lambda triggered",
+        "view": "singleValue",
+        "metrics": [
+        [ "AWS/Lambda", "Throttles", "FunctionName", "${LambdaFunctionName}", { "period": 86400, "stat": "Sum" } ],
+        [ "AWS/Lambda", "Duration", "FunctionName", "${LambdaFunctionName}", { "period": 86400, "stat": "Sum" } ]
+        ],
+        "region": "${AWS::Region}",
+        "yAxis": {
+        "left": {
+        "min": 0
+        }
+        },
+        "period": 300
+        }
+        },
+        {
+        "type": "metric",
+        "x": 6,
+        "y": 3,
+        "width": 9,
+        "height": 6,
+        "styles": "undefined",
+        "properties": {
+        "view": "timeSeries",
+        "stacked": false,
+        "metrics": [
+        [ "AWS/EC2", "CPUUtilization", "InstanceId", "i-03881205d554bbb34" ],
+        [ ".", "NetworkIn", ".", "." ],
+        [ ".", "NetworkOut", ".", "." ]
+        ],
+        "region": "${AWS::Region}",
+        "title": "This is a sample for EC2 instance"
+        }
+        },
+        {
+        "type": "text",
+        "x": 0,
+        "y": 0,
+        "width": 24,
+        "height": 3,
+        "styles": "undefined",
+        "properties": {
+        "markdown": "\n# Lambda Dashboard\n## Belongs to : Vakees\n*This is a test dashboard created via Cloudformation template*, **The data is fed from Lambda and EC2**\n\n[button:primary: Github link](https://github.com/vakees1424/AWS-cloudformation-cloudwatch-lambda-template)\n"
+        }
+        }
+        ]
+        }
+
+Outputs:
+  VakeesCloudwatchDashboard:
+    Description: "Dashboard is created to monitor lambda function"
+    Value: !Sub |
+      "https://${AWS::Region}.console.aws.amazon.com/cloudwatch/home#dashboards:name=${VakeesDashboardName}"
