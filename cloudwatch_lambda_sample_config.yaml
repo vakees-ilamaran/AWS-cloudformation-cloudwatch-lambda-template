@@ -3,7 +3,7 @@ Description: >
 
 Parameters:
   VakeesDashboardName:
-    Description: VPC used for launching this instance
+    Description: Name of the CloudWatch Dashboard
     Type: String
     Default: Vakees-Lambda
   LambdaFunctionName:
