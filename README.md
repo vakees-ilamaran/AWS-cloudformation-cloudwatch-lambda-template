@@ -35,5 +35,5 @@ ___
 ## Optional way to update stack
 #### You can create a change set and execute it for updating the stack from the cloudformation UI.
 ```
-aws cloudformation create-change-set --stack-name jenkins-test-stack --template-body file://./cloudwatch_lambda_sample_config.yaml --change-set-name port-update --description "updating the lambda function name"
+aws cloudformation create-change-set --stack-name cloudwatch-test-stack --template-body file://./cloudwatch_lambda_sample_config.yaml --change-set-name port-update --description "updating the lambda function name"
 ```
