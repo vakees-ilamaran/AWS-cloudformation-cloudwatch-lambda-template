@@ -1,5 +1,5 @@
 Description: >
-  This will create a dashboard and some sample metrics.
+  This will create a dashboard and some sample metrics for lambda function.
 
 Parameters:
   VakeesDashboardName:
