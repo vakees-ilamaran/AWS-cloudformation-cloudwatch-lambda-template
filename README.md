@@ -37,3 +37,6 @@ ___
 ```
 aws cloudformation create-change-set --stack-name cloudwatch-test-stack --template-body file://./cloudwatch_lambda_sample_config.yaml --change-set-name port-update --description "updating the lambda function name"
 ```
+Author Information
+------------------
+[vakees](https://github.com/vakees1424)
